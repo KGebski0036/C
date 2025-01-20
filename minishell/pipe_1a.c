@@ -11,22 +11,25 @@
 
 #define MSG "Hello World!!"
 
-void child(int fd[2]){
+void child(int fd[2])
+{
     close(fd[0]);
     write(fd[1], MSG, strlen(MSG) + 1);
     close(fd[1]);
 }
 
-void parent(int fd[2]){
+void parent(int fd[2])
+{
 
     char buffor[strlen(MSG) + 1];
     close(fd[1]);
     read(fd[0], buffor, strlen(MSG) + 1);
-	printf("%s\n", buffor);
+    printf("%s\n", buffor);
     close(fd[0]);
 }
 
-int main(void) {
+int main(void)
+{
     int fd[2];
 
     if (pipe(fd) < 0)
@@ -37,16 +40,17 @@ int main(void) {
 
     pid_t pid = fork();
 
-    switch(pid){
-        case -1:
-            printf("Error");
-            break;
-        case 0:
-            child(fd);
-            break;
-        default:
-            parent(fd);
-            break;
+    switch (pid)
+    {
+    case -1:
+        printf("Error");
+        break;
+    case 0:
+        child(fd);
+        break;
+    default:
+        parent(fd);
+        break;
     }
     return 0;
 }

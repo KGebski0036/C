@@ -9,15 +9,15 @@ CFLAGS = -O3 -Wall -Wextra -Werror
 
 
 .c.o:
-	gcc ${CFLAGS} -c $< -o ${<:.c=.o} -I .
+	$(CC) ${CFLAGS} -c $< -o ${<:.c=.o} -I .
 
 all: reader writer
 
 reader: ${OBJS1_READER}
-	gcc ${OBJS1_READER} -o reader
+	$(CC) ${OBJS1_READER} -o reader
 
 writer: ${OBJS1_WRITER}
-	gcc ${OBJS1_WRITER} -o writer
+	$(CC) ${OBJS1_WRITER} -o writer
 
 clean:
 	rm -f ${OBJS1_READER} ${OBJS1_WRITER}

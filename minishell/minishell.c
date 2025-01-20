@@ -4,10 +4,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void print_error(const char* err)
+void print_error(const char *err)
 {
-	printf("%s\n", err);
-	exit(1);
+    printf("%s\n", err);
+    exit(1);
 }
 
 void set_pipe(int has_pipe, int *fd, int end)
@@ -23,7 +23,7 @@ void exec(char **argv, int i)
     has_pipe = argv[i] && !strcmp(argv[i], ".");
 
     if (has_pipe && pipe(fd) == -1)
-		print_error("Pipe failed");
+        print_error("Pipe failed");
 
     if ((pid = fork()) == -1)
         print_error("Fork failed");

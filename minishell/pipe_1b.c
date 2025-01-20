@@ -7,23 +7,27 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void child(int fd[2]){
+void child(int fd[2])
+{
     close(fd[0]);
     int limit = 0;
-    for(;;) {
+    for (;;)
+    {
         limit += write(fd[1], "A", 1);
         printf("W bufforze jest: %d bajtow\n", limit);
     }
     close(fd[1]);
 }
 
-void parent(int fd[2]){
+void parent(int fd[2])
+{
     close(fd[1]);
     sleep(5);
     close(fd[0]);
 }
 
-int main(void) {
+int main(void)
+{
     int fd[2];
 
     if (pipe(fd) < 0)
@@ -34,16 +38,17 @@ int main(void) {
 
     pid_t pid = fork();
 
-    switch(pid){
-        case -1:
-            printf("Error");
-            break;
-        case 0:
-            child(fd);
-            break;
-        default:
-            parent(fd);
-            break;
+    switch (pid)
+    {
+    case -1:
+        printf("Error");
+        break;
+    case 0:
+        child(fd);
+        break;
+    default:
+        parent(fd);
+        break;
     }
     return 0;
 }

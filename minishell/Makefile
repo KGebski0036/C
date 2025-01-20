@@ -1,4 +1,3 @@
-
 SRCS1a = pipe_1a.c
 OBJS1a = $(SRCS1a:.c=.o)
 
@@ -12,16 +11,16 @@ CFLAGS = -O3 -Wall -Wextra -Werror
 
 
 .c.o:
-	gcc ${CFLAGS} -c $< -o ${<:.c=.o}
+	$(CC) ${CFLAGS} -c $< -o ${<:.c=.o}
 
 1a: ${OBJS1a}
-	gcc ${OBJS1a} -o 1a
+	$(CC) ${OBJS1a} -o 1a
 
 1b: ${OBJS1b}
-	gcc ${OBJS1b} -o 1b
+	$(CC) ${OBJS1b} -o 1b
 
 minishell: ${OBJS_MINISHELL}
-	gcc ${OBJS_MINISHELL} -o minishell
+	$(CC) ${OBJS_MINISHELL} -o minishell
 
 all: 1a 1b minishell
 

@@ -1,10 +1,10 @@
-SRCS = main.c
+SRCS = filo.c filo_helper.c
 OBJS = $(SRCS:.c=.o)
 CFLAGS = -O3 -Wall -Wextra -Werror
-NAME = program
+NAME = filo
 
 .c.o:
-	$(CC) ${CFLAGS} -c $< -o ${<:.c=.o}
+	$(CC) ${CFLAGS} -c $< -o ${<:.c=.o} -I.
 
 ${NAME}: ${OBJS}
 	$(CC) ${OBJS} -o ${NAME}

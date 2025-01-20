@@ -6,19 +6,22 @@
 
 #include "shared.h"
 
-int main() {
+int main()
+{
     int shmid = shmget(KEY, 1024, 0644 | IPC_CREAT);
-    if (shmid == -1) 
+    if (shmid == -1)
         printError("Coudnt create shared memory");
 
-    Message* shmp = shmat(shmid, NULL, 0);
+    Message *shmp = shmat(shmid, NULL, 0);
 
     if (shmp == (void *)-1)
         printError("Coudnt attach shared memory");
 
     int lastId = -1;
-    while (lastId != NUMBER_OF_MESSAGES - 1){
-        if (lastId != shmp->i) {
+    while (lastId != NUMBER_OF_MESSAGES - 1)
+    {
+        if (lastId != shmp->i)
+        {
             lastId = shmp->i;
             printf("id: %d; message: %s\n", shmp->i, shmp->buf);
         }
@@ -26,7 +29,7 @@ int main() {
     }
 
     if (shmdt(shmp) == -1)
-       printError("Coudnt detach shared memory");
+        printError("Coudnt detach shared memory");
 
     return 0;
 }

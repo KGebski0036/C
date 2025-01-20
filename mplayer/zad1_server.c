@@ -6,12 +6,14 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-void printError(const char *err){
+void printError(const char *err)
+{
     fprintf(stderr, "%s\n", err);
     exit(1);
 }
 
-int main(void) {
+int main(void)
+{
 
     int fd;
 
@@ -25,5 +27,4 @@ int main(void) {
     // nie czytamy
     close(fd);
     unlink("/tmp/fifotest");
-    
 }

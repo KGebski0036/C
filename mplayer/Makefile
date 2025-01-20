@@ -12,18 +12,18 @@ CFLAGS = -O3 -Wall -Wextra -Werror
 
 
 .c.o:
-	gcc ${CFLAGS} -c $< -o ${<:.c=.o}
+	$(CC) ${CFLAGS} -c $< -o ${<:.c=.o}
 
 all: client server mplayer_frontend
 
 client: ${OBJS1_CLIENT}
-	gcc ${OBJS1_CLIENT} -o client
+	$(CC) ${OBJS1_CLIENT} -o client
 
 server: ${OBJS1_SERVER}
-	gcc ${OBJS1_SERVER} -o server
+	$(CC) ${OBJS1_SERVER} -o server
 
 mplayer_frontend: ${OBJS_MPLAYER}
-	gcc ${OBJS_MPLAYER} -o mplayer_frontend
+	$(CC) ${OBJS_MPLAYER} -o mplayer_frontend
 
 clean:
 	rm -f ${OBJS1_SERVER} ${OBJS1_CLIENT} ${OBJS_MPLAYER}
