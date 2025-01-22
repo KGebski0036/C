@@ -1,0 +1,33 @@
+#ifndef BANK_H
+# define BANK_H
+
+#include <time.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <semaphore.h>
+#include <pthread.h>
+
+#define NUM_CUSTOMERS 10
+
+extern int money_in_bank;
+
+struct key_to_bank_s
+{
+    int is_free;
+    pthread_mutex_t mutex;
+    pthread_cond_t normal_queue;
+    pthread_cond_t prior_queue;
+};
+
+void printError(const char *str);
+
+void start_symulation(void);
+void* cusromer_rutine(void *);
+
+void change_bank_account_money(int money);
+void lockCriticalSection(struct key_to_bank_s* key, int money);
+void unlockCriticalSection(struct key_to_bank_s* key);
+
+#endif
