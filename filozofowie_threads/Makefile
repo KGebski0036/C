@@ -5,10 +5,10 @@ LFLAGS = -pthread
 NAME = filo
 
 .c.o:
-	gcc ${CFLAGS} -c $< -o ${<:.c=.o} -I.
+	$(CC) ${CFLAGS} -c $< -o ${<:.c=.o} -I.
 
 ${NAME}: ${OBJS}
-	gcc ${OBJS} -o ${NAME} ${LFLAGS}
+	$(CC) ${OBJS} -o ${NAME} ${LFLAGS}
 all: ${NAME}
 
 clean:

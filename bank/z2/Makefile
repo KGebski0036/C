@@ -5,10 +5,10 @@ LFLAGS = -pthread
 NAME = bank
 
 .c.o:
-	gcc ${CFLAGS} -c $< -o ${<:.c=.o} -I.
+	$(CC) ${CFLAGS} -c $< -o ${<:.c=.o} -I.
 
 ${NAME}: ${OBJS}
-	gcc ${LFLAGS} ${OBJS} -o ${NAME}
+	$(CC) ${LFLAGS} ${OBJS} -o ${NAME}
 all: ${NAME}
 
 clean:
