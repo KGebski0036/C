@@ -2,7 +2,7 @@
 # define HELPER_H
 
 #define BUFFER_SIZE 1024
-#define DEFAULT_PORT 5679
+#define DEFAULT_PORT 5681
 
 #define MAX_CLIENTS 10
 

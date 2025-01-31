@@ -9,6 +9,8 @@
 #include <pthread.h>
 #include "helper.h"
 
+void *receiveMessages(void *arg);
+
 int main(int argc, char **argv)
 {
     char *serv_ip = "127.0.0.1";
@@ -24,44 +26,24 @@ int main(int argc, char **argv)
     serv_addr.sin_port = htons(server_port);
 
     int sock = socket(AF_INET, SOCK_STREAM, 0);
-    if (sock < 0)
-    {
-        perror("Failed to create socket");
-        exit(1);
-    }
-
     if (connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
     {
         perror("Failed to connect to server");
-        close(sock);
         exit(1);
     }
-
     pthread_t recv_thread;
     pthread_create(&recv_thread, NULL, receiveMessages, &sock);
 
     char buffer[BUFFER_SIZE];
-    int n;
-
     while (fgets(buffer, sizeof(buffer), stdin) != NULL)
     {
-        n = strlen(buffer);
+        int n = strlen(buffer);
         if (buffer[n - 1] == '\n')
             buffer[--n] = '\0';
-
-        if (write(sock, buffer, n) < 0)
-        {
-            perror("Failed to write to server");
-            break;
-        }
-
+        write(sock, buffer, n);
         if (strcmp(buffer, "q") == 0)
-        {
-            printf("Exiting...\n");
             break;
-        }
     }
-
     close(sock);
     return 0;
 }
@@ -71,13 +53,11 @@ void *receiveMessages(void *arg)
     int sock = *(int *)arg;
     char buffer[BUFFER_SIZE];
     int n;
-
     while ((n = read(sock, buffer, sizeof(buffer) - 1)) > 0)
     {
         buffer[n] = '\0';
         printf("\nServer: %s\n", buffer);
     }
-
     printf("Server disconnected.\n");
     exit(0);
 }
